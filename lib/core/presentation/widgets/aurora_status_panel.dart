@@ -1,6 +1,7 @@
 import 'package:aurora/core/presentation/colors.dart';
 import 'package:aurora/core/presentation/widgets/aurora_add_button.dart';
 import 'package:aurora/core/presentation/widgets/aurora_schedule_meeting_button.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 
 enum RoomStatus {
@@ -82,6 +83,7 @@ class _Booked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         const Text(
           'BOOKED',
@@ -93,12 +95,71 @@ class _Booked extends StatelessWidget {
         ),
         Text(meetingName),
         Text(hostName),
+        const _Timer(),
         AuroraScheduleMeetingButton(
             label: 'Schedule Meeting',
             onTap: () {
               print('Schedule test');
             }),
       ],
+    );
+  }
+}
+
+class _Timer extends StatelessWidget {
+  const _Timer({super.key});
+
+  String _printDuration(Duration duration) {
+    String negativeSign = duration.isNegative ? '-' : '';
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60).abs());
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60).abs());
+    return "$negativeSign${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CircularCountDownTimer(
+      duration: 60 * 60 * 2,
+      initialDuration: 0,
+      controller: CountDownController(),
+      width: 200.0,
+      height: 200.0,
+      ringColor: Colors.grey[300]!,
+      ringGradient: null,
+      fillColor: Colors.purpleAccent[100]!,
+      fillGradient: null,
+      backgroundColor: Colors.purple[500],
+      backgroundGradient: null,
+      strokeWidth: 20.0,
+      strokeCap: StrokeCap.round,
+      textStyle: const TextStyle(
+        fontSize: 33.0,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+      textAlign: TextAlign.center,
+      textFormat: CountdownTextFormat.S,
+      isReverse: true,
+      isReverseAnimation: false,
+      isTimerTextShown: true,
+      autoStart: true,
+      onStart: () {
+        debugPrint('Countdown Started');
+      },
+      onComplete: () {
+        debugPrint('Countdown Ended');
+      },
+      onChange: (String timeStamp) {
+        debugPrint('Countdown Changed $timeStamp');
+      },
+      timeFormatterFunction: (_, duration) {
+        if (duration.inSeconds == 0) {
+          return "Start";
+        } else {
+          return _printDuration(duration);
+        }
+      },
     );
   }
 }
