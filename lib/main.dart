@@ -1,6 +1,7 @@
-import 'package:aurora/aurora/core/presentation/widgets/aurora_add_button.dart';
-import 'package:aurora/aurora/core/presentation/widgets/aurora_schedule_meeting_button.dart';
 import 'package:flutter/material.dart';
+
+import 'core/presentation/widgets/aurora_add_button.dart';
+import 'core/presentation/widgets/aurora_schedule_meeting_button.dart';
 
 void main() {
   runApp(const MyApp());
