@@ -1,4 +1,4 @@
-import 'package:aurora/aurora/core/presentation/colors.dart';
+import '../colors.dart';
 import 'package:flutter/material.dart';
 
 class AuroraAddButton extends StatelessWidget {

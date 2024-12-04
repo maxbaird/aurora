@@ -1,4 +1,5 @@
 import 'package:aurora/aurora/core/presentation/widgets/aurora_add_button.dart';
+import 'package:aurora/aurora/core/presentation/widgets/aurora_schedule_meeting_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -46,7 +47,14 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(child: AuroraAddButton()),
+      body: Column(
+        children: [
+          const Center(child: AuroraAddButton()),
+          Center(
+              child: AuroraScheduleMeetingButton(
+                  label: 'Schedule Meeting', onTap: () {}))
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
