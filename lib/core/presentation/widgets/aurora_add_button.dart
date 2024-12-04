@@ -17,14 +17,16 @@ class AuroraAddButton extends StatelessWidget {
       child: Ink(
         width: 200.0,
         height: 200.0,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: kAuroraCyan,
-        ),
-        child: const Icon(
-          Icons.add,
-          size: 128.0,
-          color: kAuroraWhite,
+        child: Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: kAuroraCyan,
+          ),
+          child: const Icon(
+            Icons.add,
+            size: 128.0,
+            color: kAuroraWhite,
+          ),
         ),
       ),
     );

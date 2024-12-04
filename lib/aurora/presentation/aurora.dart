@@ -1,3 +1,4 @@
+import 'package:aurora/core/presentation/widgets/aurora_status_panel.dart';
 import 'package:flutter/material.dart';
 
 class Aurora extends StatelessWidget {
@@ -8,10 +9,7 @@ class Aurora extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return Row(
       children: [
-        Container(
-          color: Colors.red,
-          width: screenWidth * 0.66,
-        ),
+        const AuroraStatusPanel(roomStatus: RoomStatus.available),
         Container(
           color: Colors.blue,
           width: screenWidth * 0.33,
