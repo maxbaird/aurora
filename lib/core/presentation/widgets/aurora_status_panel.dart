@@ -1,5 +1,6 @@
 import 'package:aurora/core/presentation/colors.dart';
 import 'package:aurora/core/presentation/widgets/aurora_add_button.dart';
+import 'package:aurora/core/presentation/widgets/aurora_schedule_meeting_button.dart';
 import 'package:flutter/material.dart';
 
 enum RoomStatus {
@@ -92,6 +93,11 @@ class _Booked extends StatelessWidget {
         ),
         Text(meetingName),
         Text(hostName),
+        AuroraScheduleMeetingButton(
+            label: 'Schedule Meeting',
+            onTap: () {
+              print('Schedule test');
+            }),
       ],
     );
   }

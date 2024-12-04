@@ -9,7 +9,11 @@ class Aurora extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return Row(
       children: [
-        const AuroraStatusPanel(roomStatus: RoomStatus.booked),
+        const AuroraStatusPanel(
+          roomStatus: RoomStatus.booked,
+          meetingName: 'Weekly',
+          hostName: 'Max Baird',
+        ),
         Container(
           color: Colors.blue,
           width: screenWidth * 0.33,
