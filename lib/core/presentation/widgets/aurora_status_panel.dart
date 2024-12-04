@@ -11,13 +11,23 @@ enum RoomStatus {
 }
 
 class AuroraStatusPanel extends StatelessWidget {
-  const AuroraStatusPanel({super.key, required this.roomStatus});
+  const AuroraStatusPanel({
+    super.key,
+    required this.roomStatus,
+    this.meetingName,
+    this.hostName,
+  });
 
   final RoomStatus roomStatus;
+  final String? meetingName;
+  final String? hostName;
 
   Widget get _body => switch (roomStatus) {
         RoomStatus.available => const _Available(),
-        RoomStatus.booked => const _Booked(),
+        RoomStatus.booked => _Booked(
+            meetingName: meetingName ?? 'Unknown',
+            hostName: hostName ?? 'Unknown',
+          ),
       };
 
   @override
@@ -39,7 +49,9 @@ class _Available extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AuroraAddButton(onTap: () {}),
+        AuroraAddButton(onTap: () {
+          print('Tapped');
+        }),
         const Padding(
           padding: EdgeInsets.only(top: 32.0),
           child: Text(
@@ -57,10 +69,30 @@ class _Available extends StatelessWidget {
 }
 
 class _Booked extends StatelessWidget {
-  const _Booked({super.key});
+  const _Booked({
+    super.key,
+    required this.meetingName,
+    required this.hostName,
+  });
+
+  final String meetingName;
+  final String hostName;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        const Text(
+          'BOOKED',
+          style: const TextStyle(
+            fontSize: 48.0,
+            color: kAuroraWhite,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Text(meetingName),
+        Text(hostName),
+      ],
+    );
   }
 }
