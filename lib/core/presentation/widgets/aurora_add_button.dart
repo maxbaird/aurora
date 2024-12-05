@@ -18,7 +18,7 @@ class AuroraAddButton extends StatelessWidget {
         width: 150.0,
         height: 150.0,
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Color(0xFF597931),
           ),

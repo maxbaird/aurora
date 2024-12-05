@@ -3,7 +3,9 @@ import '../../core/presentation/widgets/aurora_status_panel.dart';
 import 'package:flutter/material.dart';
 
 class Aurora extends StatelessWidget {
-  const Aurora({super.key});
+  const Aurora({super.key, required this.roomStatus});
+
+  final RoomStatus roomStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +13,8 @@ class Aurora extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const AuroraStatusPanel(
-          roomStatus: RoomStatus.available,
+        AuroraStatusPanel(
+          roomStatus: roomStatus,
           roomName: 'Conference Room',
           meetingName: 'Weekly Meeting',
           hostName: 'Max Baird',
