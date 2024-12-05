@@ -22,19 +22,59 @@ class AuroraSchedulePanel extends StatelessWidget {
 
   final List<ScheduleInformation> scheduleInformation;
 
+  static final DateTime _kCurrentDate = DateTime(2024, 12, 5);
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
       color: Colors.grey.withOpacity(0.1),
-      width: screenWidth * 0.33,
+      width: screenWidth * 0.34,
       child: Column(
         children: [
+          const _DateBar(date: 'today'),
           for (var schedule in scheduleInformation) ...[
-            _MeetingInfo(scheduleInformation: schedule)
-          ]
-        ],
+            if (schedule.from.difference(_kCurrentDate).inDays == 0) ...[
+              _MeetingInfo(scheduleInformation: schedule)
+            ]
+          ],
+          const _DateBar(date: 'tomorrow, Friday, December 06'),
+          for (var schedule in scheduleInformation) ...[
+            if (schedule.from.difference(_kCurrentDate).inDays > 0) ...[
+              _MeetingInfo(scheduleInformation: schedule)
+            ]
+          ],
+        ]
+            .map((e) =>
+                Padding(padding: const EdgeInsets.only(bottom: 10.0), child: e))
+            .toList(),
+      ),
+    );
+  }
+}
+
+class _DateBar extends StatelessWidget {
+  const _DateBar({
+    super.key,
+    required this.date,
+  });
+
+  final String date;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 20.0,
+      color: Colors.grey.shade400,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0),
+        child: Row(
+          children: [
+            Text(date.toUpperCase(),
+                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
+          ],
+        ),
       ),
     );
   }

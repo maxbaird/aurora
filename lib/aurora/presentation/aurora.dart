@@ -1,5 +1,5 @@
-import 'package:aurora/core/presentation/widgets/aurora_schedule_panel.dart';
-import 'package:aurora/core/presentation/widgets/aurora_status_panel.dart';
+import '../../core/presentation/widgets/aurora_schedule_panel.dart';
+import '../../core/presentation/widgets/aurora_status_panel.dart';
 import 'package:flutter/material.dart';
 
 class Aurora extends StatelessWidget {
@@ -7,22 +7,34 @@ class Aurora extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const AuroraStatusPanel(
           roomStatus: RoomStatus.booked,
           roomName: 'Conference Room',
-          meetingName: 'Weekly',
+          meetingName: 'Weekly Meeting',
           hostName: 'Max Baird',
         ),
         AuroraSchedulePanel(scheduleInformation: [
           ScheduleInformation(
             from: DateTime(2024, 12, 5, 10, 15),
             to: DateTime(2024, 12, 5, 11, 15),
-            meetingTitle: 'Weekly Meeting',
-            hostName: 'Ryan',
+            meetingTitle: 'Project Planning',
+            hostName: 'Rebecka Dunn',
+          ),
+          ScheduleInformation(
+            from: DateTime(2024, 12, 5, 13),
+            to: DateTime(2024, 12, 5, 15),
+            meetingTitle: 'Next Step Session',
+            hostName: 'Alice Larsson',
+          ),
+          ScheduleInformation(
+            from: DateTime(2024, 12, 6, 8),
+            to: DateTime(2024, 12, 6, 11),
+            meetingTitle: 'Workflow Workshop',
+            hostName: 'William Svensson',
           ),
         ]),
       ],
