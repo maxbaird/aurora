@@ -46,7 +46,11 @@ class AuroraStatusPanel extends StatelessWidget {
       width: screenWidth * 0.66,
       child: Column(
         children: [
-          _RoomInfo(roomName: roomName, available: _available),
+          _RoomInfo(
+            roomName: roomName,
+            available: _available,
+            roomStatus: roomStatus,
+          ),
           _body,
         ],
       ),
@@ -99,7 +103,7 @@ class _Booked extends StatelessWidget {
         const Text(
           'BOOKED',
           style: const TextStyle(
-            fontSize: 38.0,
+            fontSize: 28.0,
             color: kAuroraWhite,
             fontWeight: FontWeight.w500,
           ),
@@ -126,36 +130,44 @@ class _RoomInfo extends StatelessWidget {
     super.key,
     required this.roomName,
     required this.available,
+    required this.roomStatus,
   });
 
   final String roomName;
   final String available;
+  final RoomStatus roomStatus;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Column(
-            children: [
-              Text(
-                roomName,
-                style: const TextStyle(fontSize: 28.0, color: kAuroraWhite),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    available,
-                    style: const TextStyle(fontSize: 16.0, color: kAuroraWhite),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+    return Container(
+      color: Colors.transparent,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                Text(
+                  roomName,
+                  style: const TextStyle(fontSize: 18.0, color: kAuroraWhite),
+                ),
+                roomStatus == RoomStatus.booked
+                    ? const SizedBox.shrink()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            available,
+                            style: const TextStyle(
+                                fontSize: 16.0, color: kAuroraWhite),
+                          ),
+                        ],
+                      ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -178,8 +190,8 @@ class _Timer extends StatelessWidget {
       duration: 60 * 60 * 2,
       initialDuration: 0,
       controller: CountDownController(),
-      width: 150.0,
-      height: 150.0,
+      width: 100.0,
+      height: 100.0,
       ringColor: kAuroraWhite,
       ringGradient: null,
       fillColor: Colors.purpleAccent[100]!,
@@ -189,7 +201,7 @@ class _Timer extends StatelessWidget {
       strokeWidth: 20.0,
       strokeCap: StrokeCap.round,
       textStyle: const TextStyle(
-        fontSize: 22.0,
+        fontSize: 16.0,
         color: Colors.white,
         fontWeight: FontWeight.bold,
       ),
