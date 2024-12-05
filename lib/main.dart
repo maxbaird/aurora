@@ -19,8 +19,14 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: const Text('Aurora'),
+            backgroundColor: Colors.black,
+            title: const Text(
+              'Aurora',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             centerTitle: true,
           ),
           body: const Aurora(),

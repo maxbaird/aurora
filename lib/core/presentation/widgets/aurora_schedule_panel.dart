@@ -27,21 +27,66 @@ class AuroraSchedulePanel extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
+      color: Colors.grey.withOpacity(0.1),
       width: screenWidth * 0.33,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [],
-        ),
+      child: Column(
+        children: [
+          for (var schedule in scheduleInformation) ...[
+            _MeetingInfo(scheduleInformation: schedule)
+          ]
+        ],
       ),
     );
   }
 }
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class _MeetingInfo extends StatelessWidget {
+  const _MeetingInfo({
+    super.key,
+    required this.scheduleInformation,
+  });
+
+  final ScheduleInformation scheduleInformation;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                  '${scheduleInformation.from.hour}:${scheduleInformation.from.minute}',
+                  style: const TextStyle(color: Colors.grey)),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Icon(
+                  Icons.arrow_forward_sharp,
+                  color: Colors.grey,
+                  size: 14.0,
+                ),
+              ),
+              Text(
+                  '${scheduleInformation.to.hour}:${scheduleInformation.to.minute}',
+                  style: const TextStyle(color: Colors.grey)),
+            ],
+          ),
+          Text(scheduleInformation.meetingTitle,
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade700)),
+          Text(
+            scheduleInformation.hostName,
+            style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
   }
 }
