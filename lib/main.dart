@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       home: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
           leading: Switch(
               activeColor: Colors.red,

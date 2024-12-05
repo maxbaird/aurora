@@ -29,10 +29,10 @@ class AuroraScheduleMeetingButton extends StatelessWidget {
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.add, color: kAuroraWhite),
+              const Icon(Icons.add, color: Colors.black),
               Text(label,
                   style: const TextStyle(
-                    color: kAuroraWhite,
+                    color: Colors.black,
                     fontWeight: FontWeight.w500,
                   )),
             ],

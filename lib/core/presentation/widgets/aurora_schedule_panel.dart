@@ -71,9 +71,11 @@ class _DateBar extends StatelessWidget {
         padding: const EdgeInsets.only(left: 16.0),
         child: Row(
           children: [
-            Text(date.toUpperCase(),
-                style: const TextStyle(
-                    fontSize: 12.0, fontWeight: FontWeight.w600)),
+            Text(
+              date.toUpperCase(),
+              style:
+                  const TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600),
+            ),
           ],
         ),
       ),
