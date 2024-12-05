@@ -5,22 +5,25 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 
 enum RoomStatus {
-  booked(Colors.red),
-  available(Colors.green);
+  booked(Colors.red, 'BOOKED'),
+  available(Colors.green, 'AVAILABLE');
 
   final Color color;
-  const RoomStatus(this.color);
+  final String value;
+  const RoomStatus(this.color, this.value);
 }
 
 class AuroraStatusPanel extends StatelessWidget {
   const AuroraStatusPanel({
     super.key,
     required this.roomStatus,
+    required this.roomName,
     this.meetingName,
     this.hostName,
   });
 
   final RoomStatus roomStatus;
+  final String roomName;
   final String? meetingName;
   final String? hostName;
 
@@ -32,13 +35,22 @@ class AuroraStatusPanel extends StatelessWidget {
           ),
       };
 
+  String get _available =>
+      roomStatus == RoomStatus.available ? 'Available' : '';
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       color: roomStatus.color,
       width: screenWidth * 0.66,
-      child: _body,
+      child: Column(
+        children: [
+          _RoomInfo(roomName: roomName, available: _available),
+          const SizedBox(height: 48.0),
+          _body,
+        ],
+      ),
     );
   }
 }
@@ -102,6 +114,46 @@ class _Booked extends StatelessWidget {
               print('Schedule test');
             }),
       ],
+    );
+  }
+}
+
+class _RoomInfo extends StatelessWidget {
+  const _RoomInfo({
+    super.key,
+    required this.roomName,
+    required this.available,
+  });
+
+  final String roomName;
+  final String available;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              Text(
+                roomName,
+                style: const TextStyle(fontSize: 28.0, color: kAuroraWhite),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    available,
+                    style: const TextStyle(fontSize: 16.0, color: kAuroraWhite),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

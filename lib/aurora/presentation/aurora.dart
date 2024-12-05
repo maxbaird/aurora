@@ -10,7 +10,8 @@ class Aurora extends StatelessWidget {
     return Row(
       children: [
         const AuroraStatusPanel(
-          roomStatus: RoomStatus.booked,
+          roomStatus: RoomStatus.available,
+          roomName: 'Conference Room',
           meetingName: 'Weekly',
           hostName: 'Max Baird',
         ),
