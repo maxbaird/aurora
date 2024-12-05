@@ -15,16 +15,16 @@ class AuroraAddButton extends StatelessWidget {
       onTap: onTap,
       customBorder: const CircleBorder(),
       child: Ink(
-        width: 200.0,
-        height: 200.0,
+        width: 150.0,
+        height: 150.0,
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: kAuroraCyan,
+            color: Color(0xFF597931),
           ),
           child: const Icon(
             Icons.add,
-            size: 128.0,
+            size: 70.0,
             color: kAuroraWhite,
           ),
         ),

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 enum RoomStatus {
   booked(Colors.red, 'BOOKED'),
-  available(Colors.green, 'AVAILABLE');
+  available(Color.fromRGBO(76, 175, 80, 0.8), 'AVAILABLE');
 
   final Color color;
   final String value;
@@ -74,7 +74,7 @@ class _Available extends StatelessWidget {
           child: Text(
             'Book Now',
             style: TextStyle(
-              fontSize: 48.0,
+              fontSize: 18.0,
               color: kAuroraWhite,
               fontWeight: FontWeight.w500,
             ),
@@ -102,7 +102,7 @@ class _Booked extends StatelessWidget {
       children: [
         const Text(
           'BOOKED',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 28.0,
             color: kAuroraWhite,
             fontWeight: FontWeight.w500,
@@ -113,7 +113,9 @@ class _Booked extends StatelessWidget {
           child: _Timer(),
         ),
         const SizedBox(height: 5.0),
-        Text(meetingName, style: const TextStyle(color: kAuroraWhite)),
+        Text(meetingName,
+            style: const TextStyle(
+                color: kAuroraWhite, fontWeight: FontWeight.bold)),
         Text(hostName, style: const TextStyle(color: kAuroraWhite)),
         AuroraScheduleMeetingButton(
             label: 'Schedule Meeting',

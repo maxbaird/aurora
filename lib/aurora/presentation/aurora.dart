@@ -12,7 +12,7 @@ class Aurora extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const AuroraStatusPanel(
-          roomStatus: RoomStatus.booked,
+          roomStatus: RoomStatus.available,
           roomName: 'Conference Room',
           meetingName: 'Weekly Meeting',
           hostName: 'Max Baird',
