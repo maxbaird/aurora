@@ -194,7 +194,7 @@ class _Timer extends StatelessWidget {
       height: 100.0,
       ringColor: kAuroraWhite,
       ringGradient: null,
-      fillColor: Colors.purpleAccent[100]!,
+      fillColor: Colors.amber,
       fillGradient: null,
       backgroundColor: Colors.black,
       backgroundGradient: null,
