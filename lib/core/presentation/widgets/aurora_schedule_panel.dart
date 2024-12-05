@@ -74,7 +74,7 @@ class _DateBar extends StatelessWidget {
             Text(
               date.toUpperCase(),
               style:
-                  const TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600),
+                  const TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600),
             ),
           ],
         ),
