@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             title: const Text('Aurora'),
             centerTitle: true,
           ),
