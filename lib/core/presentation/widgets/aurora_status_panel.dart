@@ -206,7 +206,7 @@ class _Timer extends StatelessWidget {
         debugPrint('Countdown Ended');
       },
       onChange: (String timeStamp) {
-        debugPrint('Countdown Changed $timeStamp');
+        // debugPrint('Countdown Changed $timeStamp');
       },
       timeFormatterFunction: (_, duration) {
         if (duration.inSeconds == 0) {
