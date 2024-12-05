@@ -47,7 +47,6 @@ class AuroraStatusPanel extends StatelessWidget {
       child: Column(
         children: [
           _RoomInfo(roomName: roomName, available: _available),
-          const SizedBox(height: 48.0),
           _body,
         ],
       ),
@@ -95,19 +94,23 @@ class _Booked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const Text(
           'BOOKED',
           style: const TextStyle(
-            fontSize: 48.0,
+            fontSize: 38.0,
             color: kAuroraWhite,
             fontWeight: FontWeight.w500,
           ),
         ),
-        const _Timer(),
-        Text(meetingName),
-        Text(hostName),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: _Timer(),
+        ),
+        const SizedBox(height: 5.0),
+        Text(meetingName, style: const TextStyle(color: kAuroraWhite)),
+        Text(hostName, style: const TextStyle(color: kAuroraWhite)),
         AuroraScheduleMeetingButton(
             label: 'Schedule Meeting',
             onTap: () {
@@ -175,8 +178,8 @@ class _Timer extends StatelessWidget {
       duration: 60 * 60 * 2,
       initialDuration: 0,
       controller: CountDownController(),
-      width: 200.0,
-      height: 200.0,
+      width: 150.0,
+      height: 150.0,
       ringColor: kAuroraWhite,
       ringGradient: null,
       fillColor: Colors.purpleAccent[100]!,
@@ -186,7 +189,7 @@ class _Timer extends StatelessWidget {
       strokeWidth: 20.0,
       strokeCap: StrokeCap.round,
       textStyle: const TextStyle(
-        fontSize: 33.0,
+        fontSize: 22.0,
         color: Colors.white,
         fontWeight: FontWeight.bold,
       ),
