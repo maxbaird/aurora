@@ -1,16 +1,9 @@
 # aurora
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Aurora is a demonstration of a room booking application. It is important to note
+that the primary purpose of this application is to test building applications
+for the Raspberry Pi and it is not intended for real world use. There are also
+currently no plans to make it ready for real-world use. For these reasons a
+serious attempt was not made to properly work on Aurora's software architecture
+and/or code quality and no tests have been written. However, both of the
+aforementioned may be addressed at a later date.
