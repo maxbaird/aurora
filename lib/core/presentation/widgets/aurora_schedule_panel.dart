@@ -19,7 +19,7 @@ class AuroraSchedulePanel extends StatelessWidget {
     return Container(
       color: Colors.grey.withOpacity(0.1),
       width: screenSize.width * 0.34,
-      height: screenSize.height,
+      // height: screenSize.height,
       child: Column(
         children: [
           const _DateBar(date: 'today'),
