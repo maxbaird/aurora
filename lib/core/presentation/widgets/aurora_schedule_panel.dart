@@ -26,11 +26,12 @@ class AuroraSchedulePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenSize = MediaQuery.of(context).size;
 
     return Container(
       color: Colors.grey.withOpacity(0.1),
-      width: screenWidth * 0.34,
+      width: screenSize.width * 0.34,
+      height: screenSize.height,
       child: Column(
         children: [
           const _DateBar(date: 'today'),

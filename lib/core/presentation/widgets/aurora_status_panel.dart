@@ -3,6 +3,7 @@ import 'package:aurora/core/presentation/widgets/aurora_add_button.dart';
 import 'package:aurora/core/presentation/widgets/aurora_schedule_meeting_button.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
 
 enum RoomStatus {
   booked(Colors.red, 'BOOKED'),
@@ -97,32 +98,40 @@ class _Booked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Text(
-          'BOOKED',
-          style: TextStyle(
-            fontSize: 28.0,
-            color: kAuroraWhite,
-            fontWeight: FontWeight.w500,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                const Text(
+                  'BOOKED',
+                  style: TextStyle(
+                    fontSize: 28.0,
+                    color: kAuroraWhite,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: _Timer(),
+                ),
+                const SizedBox(height: 5.0),
+                Text(meetingName,
+                    style: const TextStyle(
+                        color: kAuroraWhite, fontWeight: FontWeight.bold)),
+                Text(hostName, style: const TextStyle(color: kAuroraWhite)),
+              ],
+            ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: _Timer(),
-        ),
-        const SizedBox(height: 5.0),
-        Text(meetingName,
-            style: const TextStyle(
-                color: kAuroraWhite, fontWeight: FontWeight.bold)),
-        Text(hostName, style: const TextStyle(color: kAuroraWhite)),
-        AuroraScheduleMeetingButton(
-            label: 'Schedule Meeting',
-            onTap: () {
-              print('Schedule test');
-            }),
-      ],
+          AuroraScheduleMeetingButton(
+              label: 'Schedule Meeting',
+              onTap: () {
+                print('Schedule test');
+              }),
+        ],
+      ),
     );
   }
 }
