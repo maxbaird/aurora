@@ -12,10 +12,35 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
   late final TextEditingController _titleController;
   late final TextEditingController _idController;
 
+  late final FocusNode _titleFocusNode;
+  late final FocusNode _idFocusNode;
+
+  bool _shiftEnabled = false;
+  bool _titleFieldSelected = false;
+  bool _fieldSelected = false;
+
   @override
   void initState() {
     _titleController = TextEditingController();
     _idController = TextEditingController();
+
+    _titleFocusNode = FocusNode();
+    _idFocusNode = FocusNode();
+
+    _titleFocusNode.addListener(() {
+      if (_titleFocusNode.hasFocus) {
+        _fieldSelected = true;
+        _titleFieldSelected = true;
+      }
+    });
+
+    _idFocusNode.addListener(() {
+      if (_idFocusNode.hasFocus) {
+        _fieldSelected = true;
+        _titleFieldSelected = false;
+      }
+    });
+
     super.initState();
   }
 
@@ -23,6 +48,8 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
   void dispose() {
     _titleController.dispose();
     _idController.dispose();
+    _titleFocusNode.dispose();
+    _idFocusNode.dispose();
     super.dispose();
   }
 
@@ -32,6 +59,40 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
 
   void _onCancelPressed() {
     Navigator.pop(context, null);
+  }
+
+  dynamic _onKeyPress(VirtualKeyboardKey key) {
+    if (!_fieldSelected) {
+      return;
+    }
+
+    final currentController =
+        _titleFieldSelected ? _titleController : _idController;
+
+    if (key.keyType == VirtualKeyboardKeyType.String) {
+      currentController.text = currentController.text +
+          ((_shiftEnabled ? key.capsText : key.text) ?? '');
+    } else if (key.keyType == VirtualKeyboardKeyType.Action) {
+      switch (key.action) {
+        case VirtualKeyboardKeyAction.Backspace:
+          if (currentController.text.isEmpty) return;
+          currentController.text = currentController.text
+              .substring(0, currentController.text.length - 1);
+          break;
+        case VirtualKeyboardKeyAction.Return:
+          currentController.text = '${currentController.text}\n';
+          break;
+        case VirtualKeyboardKeyAction.Space:
+          currentController.text = currentController.text + (key.text ?? '');
+          break;
+        case VirtualKeyboardKeyAction.Shift:
+          _shiftEnabled = !_shiftEnabled;
+          break;
+        default:
+      }
+    }
+    // Update the screen
+    // setState(() {});
   }
 
   @override
@@ -56,6 +117,7 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
               SizedBox(
                 width: 150,
                 child: TextField(
+                  focusNode: _titleFocusNode,
                   controller: _titleController,
                   maxLength: 22,
                   decoration: const InputDecoration(labelText: 'Meeting Title'),
@@ -65,6 +127,7 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
               SizedBox(
                 width: 150,
                 child: TextField(
+                  focusNode: _idFocusNode,
                   controller: _idController,
                   maxLength: 4,
                   decoration: const InputDecoration(labelText: 'Employee ID'),
@@ -90,6 +153,8 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
           Container(
             color: Colors.green,
             child: VirtualKeyboard(
+              // textController: _currentController,
+              postKeyPress: _onKeyPress,
               height: 150,
               textColor: Colors.white,
               fontSize: 12,
