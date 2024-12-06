@@ -101,13 +101,14 @@ class _MeetingInfo extends StatelessWidget {
 
   final ScheduleInformation scheduleInformation;
 
-  String _padMinute(int minute) {
-    return minute == 0 ? '00' : minute.toString();
+  String _padDigit(int minute) {
+    return minute.toString().length == 1 ? '0$minute' : minute.toString();
   }
 
-  String get _fromMinute => _padMinute(scheduleInformation.from.minute);
-
-  String get _toMinute => _padMinute(scheduleInformation.to.minute);
+  String get _fromMinute => _padDigit(scheduleInformation.from.minute);
+  String get _toMinute => _padDigit(scheduleInformation.to.minute);
+  String get _fromHour => _padDigit(scheduleInformation.from.hour);
+  String get _toHour => _padDigit(scheduleInformation.to.hour);
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +119,7 @@ class _MeetingInfo extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('${scheduleInformation.from.hour}:$_fromMinute',
+              Text('$_fromHour:$_fromMinute',
                   style: const TextStyle(color: Colors.grey)),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -128,7 +129,7 @@ class _MeetingInfo extends StatelessWidget {
                   size: 14.0,
                 ),
               ),
-              Text('${scheduleInformation.to.hour}:$_toMinute',
+              Text('$_toHour:$_toMinute',
                   style: const TextStyle(color: Colors.grey)),
             ],
           ),

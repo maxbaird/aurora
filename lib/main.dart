@@ -54,7 +54,7 @@ List<ScheduleInformation> scheduleInformation = [
   ),
   ScheduleInformation(
     date: DateTime(2024, 12, 5),
-    from: const TimeOfDay(hour: 5, minute: 13),
+    from: const TimeOfDay(hour: 5, minute: 1),
     to: const TimeOfDay(hour: 5, minute: 15),
     meetingTitle: 'Next Step Session',
     hostName: 'Alice Larsson',
