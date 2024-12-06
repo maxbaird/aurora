@@ -151,7 +151,7 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
           Container(
             color: Colors.green,
             child: VirtualKeyboard(
-              postKeyPress: _onKeyPress,
+              onKeyPress: _onKeyPress,
               height: 150,
               textColor: Colors.white,
               fontSize: 12,
