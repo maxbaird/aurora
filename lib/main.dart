@@ -134,6 +134,7 @@ class _AuroraState extends State<_Aurora> {
         centerTitle: true,
       ),
       body: Aurora(
+        key: UniqueKey(),
         roomStatus: _roomStatus,
         scheduleInformation: scheduleInformation,
       ),

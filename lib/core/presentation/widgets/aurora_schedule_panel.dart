@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../main.dart';
 
-class AuroraSchedulePanel extends StatelessWidget {
+class AuroraSchedulePanel extends StatefulWidget {
   const AuroraSchedulePanel({
     super.key,
     required this.scheduleInformation,
@@ -10,7 +11,47 @@ class AuroraSchedulePanel extends StatelessWidget {
 
   final List<ScheduleInformation> scheduleInformation;
 
-  static final DateTime _kCurrentDate = DateTime(2024, 12, 5);
+  @override
+  State<AuroraSchedulePanel> createState() => _AuroraSchedulePanelState();
+}
+
+class _AuroraSchedulePanelState extends State<AuroraSchedulePanel> {
+  late List<ScheduleInformation> _uniqueDates;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _uniqueDates = List.from(widget.scheduleInformation);
+    final ids = _uniqueDates.map((e) => e.date).toSet();
+    _uniqueDates.retainWhere((x) => ids.remove(x.date));
+    _uniqueDates.sort((a, b) => a.date.isBefore(b.date)
+        ? -1
+        : a.date.isAfter(b.date)
+            ? 1
+            : 0);
+  }
+
+  // @override
+  // void didUpdateWidget(covariant AuroraSchedulePanel oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+
+  //   if (!listEquals(
+  //       widget.scheduleInformation, oldWidget.scheduleInformation)) {
+  //     _uniqueDates = List.from(widget.scheduleInformation);
+  //     final ids = _uniqueDates.map((e) => e.date).toSet();
+  //     _uniqueDates.retainWhere((x) => ids.remove(x.date));
+  //     _uniqueDates.sort((a, b) => a.date.isBefore(b.date)
+  //         ? -1
+  //         : a.date.isAfter(b.date)
+  //             ? 1
+  //             : 0);
+  //   }
+  // }
+
+  bool _datesEqual(DateTime d1, DateTime d2) {
+    return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +63,28 @@ class AuroraSchedulePanel extends StatelessWidget {
       // height: screenSize.height,
       child: Column(
         children: [
-          const _DateBar(date: 'today'),
-          for (var schedule in scheduleInformation) ...[
-            if (schedule.date.difference(_kCurrentDate).inDays == 0) ...[
-              _MeetingInfo(scheduleInformation: schedule)
+          for (var uniqueDate in _uniqueDates) ...[
+            _DateBar(date: uniqueDate.date.toString()),
+            for (var schedule in widget.scheduleInformation) ...[
+              if (_datesEqual(uniqueDate.date, schedule.date)) ...[
+                _MeetingInfo(scheduleInformation: schedule)
+              ]
             ]
-          ],
-          const _DateBar(date: 'tomorrow, Friday, December 06'),
-          for (var schedule in scheduleInformation) ...[
-            if (schedule.date.difference(_kCurrentDate).inDays > 0) ...[
-              _MeetingInfo(scheduleInformation: schedule)
-            ]
-          ],
+          ]
+          // const _DateBar(date: 'today'),
+          // for (var schedule in widget.scheduleInformation) ...[
+          //   if (schedule.date
+          //           .difference(AuroraSchedulePanel._kCurrentDate)
+          //           .inDays ==
+          //       0) ...[_MeetingInfo(scheduleInformation: schedule)]
+          // ],
+          // const _DateBar(date: 'tomorrow, Friday, December 06'),
+          // for (var schedule in widget.scheduleInformation) ...[
+          //   if (schedule.date
+          //           .difference(AuroraSchedulePanel._kCurrentDate)
+          //           .inDays >
+          //       0) ...[_MeetingInfo(scheduleInformation: schedule)]
+          // ],
         ]
             .map((e) =>
                 Padding(padding: const EdgeInsets.only(bottom: 10.0), child: e))
