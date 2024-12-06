@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   circular_countdown_timer: ^0.2.4
-  virtual_keyboard_multi_language: 1.1.0
+  virtual_keyboard_multi_language: 1.0.3
   intl: ^0.19.0
 
 dev_dependencies:
