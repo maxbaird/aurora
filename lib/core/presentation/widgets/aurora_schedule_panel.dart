@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ScheduleInformation {
-  const ScheduleInformation({
-    required this.from,
-    required this.to,
-    required this.meetingTitle,
-    required this.hostName,
-  });
-
-  final DateTime from;
-  final DateTime to;
-  final String meetingTitle;
-  final String hostName;
-}
+import '../../../main.dart';
 
 class AuroraSchedulePanel extends StatelessWidget {
   const AuroraSchedulePanel({
@@ -36,13 +24,13 @@ class AuroraSchedulePanel extends StatelessWidget {
         children: [
           const _DateBar(date: 'today'),
           for (var schedule in scheduleInformation) ...[
-            if (schedule.from.difference(_kCurrentDate).inDays == 0) ...[
+            if (schedule.date.difference(_kCurrentDate).inDays == 0) ...[
               _MeetingInfo(scheduleInformation: schedule)
             ]
           ],
           const _DateBar(date: 'tomorrow, Friday, December 06'),
           for (var schedule in scheduleInformation) ...[
-            if (schedule.from.difference(_kCurrentDate).inDays > 0) ...[
+            if (schedule.date.difference(_kCurrentDate).inDays > 0) ...[
               _MeetingInfo(scheduleInformation: schedule)
             ]
           ],

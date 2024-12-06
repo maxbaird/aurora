@@ -1,6 +1,6 @@
-import 'package:aurora/aurora/presentation/aurora.dart';
-import 'package:aurora/aurora/presentation/flows/schedule_meeting/schedule_meeting_1.dart';
-import 'package:aurora/core/presentation/widgets/aurora_status_panel.dart';
+import 'aurora/presentation/aurora.dart';
+import 'aurora/presentation/flows/schedule_meeting/schedule_meeting_1.dart';
+import 'core/presentation/widgets/aurora_status_panel.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,6 +28,46 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+class ScheduleInformation {
+  const ScheduleInformation({
+    required this.date,
+    required this.from,
+    required this.to,
+    required this.meetingTitle,
+    required this.hostName,
+  });
+
+  final DateTime date;
+  final TimeOfDay from;
+  final TimeOfDay to;
+  final String meetingTitle;
+  final String hostName;
+}
+
+List<ScheduleInformation> scheduleInformation = [
+  ScheduleInformation(
+    date: DateTime(2024, 12, 5),
+    from: const TimeOfDay(hour: 10, minute: 15),
+    to: const TimeOfDay(hour: 11, minute: 15),
+    meetingTitle: 'Project Planning',
+    hostName: 'Rebecka Dunn',
+  ),
+  ScheduleInformation(
+    date: DateTime(2024, 12, 5),
+    from: const TimeOfDay(hour: 5, minute: 13),
+    to: const TimeOfDay(hour: 5, minute: 15),
+    meetingTitle: 'Next Step Session',
+    hostName: 'Alice Larsson',
+  ),
+  ScheduleInformation(
+    date: DateTime(2024, 12, 6),
+    from: const TimeOfDay(hour: 6, minute: 8),
+    to: const TimeOfDay(hour: 6, minute: 11),
+    meetingTitle: 'Workflow Workshop',
+    hostName: 'William Svensson',
+  ),
+];
+
 class _Aurora extends StatefulWidget {
   const _Aurora({super.key});
 
@@ -39,6 +79,33 @@ class _AuroraState extends State<_Aurora> {
   bool _showUnavailability = false;
 
   RoomStatus _roomStatus = RoomStatus.available;
+
+  Future<TimeOfDay?> _timePicker(String title) {
+    return showTimePicker(
+      helpText: title,
+      context: context,
+      barrierDismissible: false,
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.dial,
+      orientation: Orientation.landscape,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            materialTapTargetSize: MaterialTapTargetSize.padded,
+          ),
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                alwaysUse24HourFormat: false,
+              ),
+              child: child!,
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +133,14 @@ class _AuroraState extends State<_Aurora> {
         ),
         centerTitle: true,
       ),
-      body: Aurora(roomStatus: _roomStatus),
+      body: Aurora(
+        roomStatus: _roomStatus,
+        scheduleInformation: scheduleInformation,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          DateTime? result = await showDatePicker(
+          DateTime? meetingDate = await showDatePicker(
             context: context,
             barrierDismissible: false,
             firstDate: DateTime(2000),
@@ -81,43 +151,40 @@ class _AuroraState extends State<_Aurora> {
             return;
           }
 
-          final TimeOfDay? time = await showTimePicker(
-            context: context,
-            barrierDismissible: false,
-            initialTime: TimeOfDay.now(),
-            initialEntryMode: TimePickerEntryMode.dial,
-            orientation: Orientation.landscape,
-            builder: (BuildContext context, Widget? child) {
-              // We just wrap these environmental changes around the
-              // child in this builder so that we can apply the
-              // options selected above. In regular usage, this is
-              // rarely necessary, because the default values are
-              // usually used as-is.
-              return Theme(
-                data: Theme.of(context).copyWith(
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
-                ),
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: MediaQuery(
-                    data: MediaQuery.of(context).copyWith(
-                      alwaysUse24HourFormat: false,
-                    ),
-                    child: child!,
-                  ),
-                ),
-              );
-            },
-          );
+          final TimeOfDay? meetingStart =
+              await _timePicker('Meeting Start Time');
+
+          final TimeOfDay? meetingEnd = await _timePicker('Meeting End Time');
 
           if (!context.mounted) {
             return;
           }
 
-          final _meetingtitleAndEmployeeId = await Navigator.push(
+          final String? meetingTitleAndEmployeeId = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const ScheduleMeeting1()),
           );
+
+          if (meetingStart == null ||
+              meetingEnd == null ||
+              meetingDate == null ||
+              meetingTitleAndEmployeeId == null) {
+            return;
+          }
+
+          List<String> titleAndHost = meetingTitleAndEmployeeId.split(',');
+
+          scheduleInformation.add(
+            ScheduleInformation(
+              date: meetingDate,
+              from: meetingStart,
+              to: meetingEnd,
+              meetingTitle: titleAndHost.first,
+              hostName: titleAndHost.last,
+            ),
+          );
+
+          setState(() {});
         },
         child: const Icon(Icons.add),
       ),

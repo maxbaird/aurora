@@ -2,10 +2,17 @@ import '../../core/presentation/widgets/aurora_schedule_panel.dart';
 import '../../core/presentation/widgets/aurora_status_panel.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+
 class Aurora extends StatelessWidget {
-  const Aurora({super.key, required this.roomStatus});
+  const Aurora({
+    super.key,
+    required this.roomStatus,
+    required this.scheduleInformation,
+  });
 
   final RoomStatus roomStatus;
+  final List<ScheduleInformation> scheduleInformation;
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +27,7 @@ class Aurora extends StatelessWidget {
           hostName: 'Max Baird',
         ),
         SingleChildScrollView(
-          child: AuroraSchedulePanel(scheduleInformation: [
-            ScheduleInformation(
-              from: DateTime(2024, 12, 5, 10, 15),
-              to: DateTime(2024, 12, 5, 11, 15),
-              meetingTitle: 'Project Planning',
-              hostName: 'Rebecka Dunn',
-            ),
-            ScheduleInformation(
-              from: DateTime(2024, 12, 5, 13),
-              to: DateTime(2024, 12, 5, 15),
-              meetingTitle: 'Next Step Session',
-              hostName: 'Alice Larsson',
-            ),
-            ScheduleInformation(
-              from: DateTime(2024, 12, 6, 8),
-              to: DateTime(2024, 12, 6, 11),
-              meetingTitle: 'Workflow Workshop',
-              hostName: 'William Svensson',
-            ),
-          ]),
+          child: AuroraSchedulePanel(scheduleInformation: scheduleInformation),
         ),
       ],
     );

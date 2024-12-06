@@ -91,8 +91,6 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
         default:
       }
     }
-    // Update the screen
-    // setState(() {});
   }
 
   @override
@@ -153,14 +151,11 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
           Container(
             color: Colors.green,
             child: VirtualKeyboard(
-              // textController: _currentController,
               postKeyPress: _onKeyPress,
               height: 150,
               textColor: Colors.white,
               fontSize: 12,
-              // builder: _builder,
               type: VirtualKeyboardType.Alphanumeric,
-              // postKeyPress: _onKeyPress,
             ),
           )
         ],
