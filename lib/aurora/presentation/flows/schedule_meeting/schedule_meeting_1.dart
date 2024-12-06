@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
+
+import '../../../../virtual_keyboard/virtual_keyboard_multi_language.dart';
 
 class ScheduleMeeting1 extends StatefulWidget {
   const ScheduleMeeting1({super.key});
@@ -127,8 +128,8 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
                 child: TextField(
                   focusNode: _idFocusNode,
                   controller: _idController,
-                  maxLength: 4,
-                  decoration: const InputDecoration(labelText: 'Employee ID'),
+                  maxLength: 22,
+                  decoration: const InputDecoration(labelText: 'Host'),
                 ),
               ),
             ],
@@ -151,7 +152,7 @@ class _ScheduleMeeting1State extends State<ScheduleMeeting1> {
           Container(
             color: Colors.green,
             child: VirtualKeyboard(
-              onKeyPress: _onKeyPress,
+              postKeyPress: _onKeyPress,
               height: 150,
               textColor: Colors.white,
               fontSize: 12,

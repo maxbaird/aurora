@@ -161,7 +161,7 @@ class _AuroraState extends State<_Aurora> {
             return;
           }
 
-          final String? meetingTitleAndEmployeeId = await Navigator.push(
+          final String? meetingTitleAndHost = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const ScheduleMeeting1()),
           );
@@ -169,11 +169,11 @@ class _AuroraState extends State<_Aurora> {
           if (meetingStart == null ||
               meetingEnd == null ||
               meetingDate == null ||
-              meetingTitleAndEmployeeId == null) {
+              meetingTitleAndHost == null) {
             return;
           }
 
-          List<String> titleAndHost = meetingTitleAndEmployeeId.split(',');
+          List<String> titleAndHost = meetingTitleAndHost.split(',');
 
           scheduleInformation.add(
             ScheduleInformation(
