@@ -66,7 +66,6 @@ class _AuroraSchedulePanelState extends State<AuroraSchedulePanel> {
 
 class _DateBar extends StatelessWidget {
   const _DateBar({
-    super.key,
     required this.date,
   });
 
@@ -95,7 +94,6 @@ class _DateBar extends StatelessWidget {
 
 class _MeetingInfo extends StatelessWidget {
   const _MeetingInfo({
-    super.key,
     required this.scheduleInformation,
   });
 

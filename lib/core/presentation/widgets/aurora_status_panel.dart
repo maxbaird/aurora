@@ -3,7 +3,6 @@ import 'package:aurora/core/presentation/widgets/aurora_add_button.dart';
 import 'package:aurora/core/presentation/widgets/aurora_schedule_meeting_button.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
 
 enum RoomStatus {
   booked(Colors.red, 'BOOKED'),
