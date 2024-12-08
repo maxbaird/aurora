@@ -186,6 +186,20 @@ class _AuroraState extends State<_Aurora> {
           );
 
           setState(() {});
+
+          if (!context.mounted) {
+            return;
+          }
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.white,
+              content: Text(
+                'Booking successfully made',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          );
         },
         child: const Icon(Icons.add),
       ),
